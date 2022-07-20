@@ -88,10 +88,13 @@ public:
       coin_t coin_type;
       money_t fudge = value_array[1]/((money_t) 2.0);
       money_t pi = 3.14159;
+      bool verbose = false;
 
       if (purchase_price == 0) check_for_purchase(purchase);
 
       if (coin.nb_read(coin_type)) {
+          if (verbose) printf("amount deposited: %5.2f purchase_price: %5.2f coin value: %5.2f \n", 
+                                 amount_deposited.to_double(), purchase_price.to_double(), value_array[coin_type.to_int()].to_double());
           switch (coin_type.to_int()) {
              case dollar      : amount_deposited += (money_t) 1.00;  break;
              case half_dollar : amount_deposited += (money_t) 0.50;  break;

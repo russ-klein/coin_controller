@@ -1,8 +1,8 @@
 CATAPULT_HOME  = /wv/hlsb/CATAPULT/10.5a/PRODUCTION/aol/Mgc_home
 INCLUDES       = -I $(CATAPULT_HOME)/shared/include -I $(source_dir)
 LIBRARIES      = -L$(CATAPULT_HOME)/shared/lib -lsystemc -lpthread
-QUESTA_HOME    = /u/release/2020.2/questasim
-VIS_HOME       = /u/release/2020.2/visualizer
+QUESTA_HOME    = /u/release/2020.1/questasim
+VIS_HOME       = /u/release/2020.1/visualizer
 VCS_HOME       = /wv/hlstools/vcs/O-2018.09-SP2-3
 
 export PATH    := $(QUESTA_HOME)/bin:$(VIS_HOME)/bin:$(PATH)
@@ -15,18 +15,18 @@ CFLAGS         = -std=c++11 -g -O0
 
 GCC_VERSION    ?= 5.3.0
 
-VLOG           = vlog
-VSIM           = vsim
-VMAP           = vmap
-VLIB           = vlib
-VOPT           = vopt
-SCCOM          = sccom
+VLOG           = $(QUESTA_HOME)/bin/vlog
+VSIM           = $(QUESTA_HOME)/bin/vsim
+VMAP           = $(QUESTA_HOME)/bin/vmap
+VLIB           = $(QUESTA_HOME)/bin/vlib
+VOPT           = $(QUESTA_HOME)/bin/vopt
+SCCOM          = $(QUESTA_HOME)/bin/sccom
 
 VLOG_FLAGS     = -work $(work) -cppinstall $(GCC_VERSION)
 VIS_FLAGS      = -work $(work) -cppinstall $(GCC_VERSION) -t 1ps -visualizer -qwavedb=+signal+report+memory=1024+transaction+class
 VSIM_FLAGS     = -work $(work) -cppinstall $(GCC_VERSION) -t 1ps 
 VOPT_VIS_FLAGS = -undefsyms=verbose -debug +designfile -cppinstall $(GCC_VERSION)
-VOPT_FLAGS     = -g -undefsyms=verbos -cppinstall $(GCC_VERSION)
+VOPT_FLAGS     = -g -undefsyms=verbose -cppinstall $(GCC_VERSION)
 SCCOM_FLAGS    = -g -O0 $(INCLUDES) -cppinstall $(GCC_VERSION) -std=c++11
 
 DEFINES        = -D SC_INCLUDE_MTI_AC -D CONNECTIONS_ACCURATE_SIM -D SC_INCLUDE_DYNAMIC_PROCESSES
@@ -62,8 +62,6 @@ work           = ./work
 
 VCS_CRUFT      = AN.DB csrc DVEfiles inter.vpd simv  simv.daidir ucli.key 
 CRUFT          = transcript *.wlf modelsim.ini *stacktrace* qwave.db .visualizer visualizer.log design.bin core.*
-
-.PHONY: run
 
 #====== Questa target ==============
 

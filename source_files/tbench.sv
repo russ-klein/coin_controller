@@ -23,7 +23,7 @@ module test_driver (
 */
 
 `define WIDTH 16
-`define INT_BITS 5
+`define INT_BITS 4
 `define FRAC_BITS (`WIDTH-`INT_BITS)
 
 `define COIN_WIDTH 3
@@ -102,7 +102,6 @@ parameter too_long = 1024;
 
    task deposit_random_coins;
       amount_deposited = 0.0;
-
       while (amount_deposited < purchase_price) begin
          coin = $urandom_range(5,1);
          amount_deposited = amount_deposited + coin_values[coin];
@@ -170,18 +169,25 @@ parameter too_long = 1024;
       dispense_rdy_reg = 1'b0;
       change_rdy_reg = 1'b0;
 
+      $display("Starting... ");
       wait_for_reset();
+      $display("reset received...");
       wait_a_bit();
 
       purchase_price = $urandom_range(100,10) * 0.05;
+      $display("making a purchase of: ", purchase_price);
 
       purchase(purchase_price);
+      $display("sent the purchase request");
       wait_a_bit();
       deposit_random_coins();
+      $display("deposited some coins");
       wait_a_bit();
       get_product();
+      $display("got my pop...");
       wait_a_bit();
       get_change(change_due);
+      $display("got my change...");
 
       $display("I got my pop!");
       $display("PASS!! ");
